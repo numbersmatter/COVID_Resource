@@ -25,9 +25,55 @@ Create and add Program ID
 
 ```{r}
 Resources <- mutate(Resources,
-                    ProgramID = str_c("P-",Resources$`Org ID`,"-",Resources$`Program Number`))
+                    ProgramID = str_c("P-",Resources$`Org ID`,"-",Resources$`Program Number`),
+                    address = str_c(Resources$`Street Address`,", ", Resources$City, ", ", Resources$State, sep = ""))
 
 ```
+
+
+#Geocode the addresses
+```{r}
+library(ggmap)
+library(config)
+library(httr)
+library(jsonlite)
+```
+
+
+This command throws a warning but no error.It still works with warning.
+```{r}
+config <- config::get()
+
+
+```
+
+
+Set google API key from Config file with Config package
+
+```{r}
+register_google(key =config$googKey )
+```
+
+
+
+```{r}
+origAddress<- Resources
+
+# Loop through the addresses to get the latitude and longitude of each address and add it to the
+# origAddress data frame in new columns lat and lon
+for(i in 1:nrow(origAddress))
+{
+  # Print("Working...")
+  result <- geocode(origAddress$address[i], output = "latlona", source = "google", )
+  origAddress$lon[i] <- as.numeric(result[1])
+  origAddress$lat[i] <- as.numeric(result[2])
+  origAddress$geoAddress[i] <- as.character(result[3])
+}
+```
+
+
+
+
 
 
 
