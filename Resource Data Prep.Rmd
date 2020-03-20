@@ -37,6 +37,7 @@ library(ggmap)
 library(config)
 library(httr)
 library(jsonlite)
+library(leaflet)
 ```
 
 
@@ -70,6 +71,24 @@ for(i in 1:nrow(origAddress))
   origAddress$geoAddress[i] <- as.character(result[3])
 }
 ```
+
+
+Add category
+
+```{r}
+origAddress<- mutate(origAddress,
+                     Category = "Food Assistence",
+                     Program = origAddress$`Program Name`)
+```
+
+
+
+
+
+
+
+
+
 
 
 
