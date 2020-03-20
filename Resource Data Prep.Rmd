@@ -1,0 +1,41 @@
+---
+title: "COVID Resource Data Prep"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+library(readr)
+Resources <- read_csv("Resources.csv", col_types = cols(`Addressline 2` = col_character(), 
+    Affliate = col_character(), `Last Updated` = col_character(), 
+    Notes = col_character(), `Program Description` = col_character(), 
+    `Sat-Hours` = col_character(), Serves = col_character(), 
+    `Sun-Hours` = col_character(), Zip = col_character()))
+
+```
+
+
+
+Create and add Program ID
+
+
+```{r}
+Resources <- mutate(Resources,
+                    ProgramID = str_c("P-",Resources$`Org ID`,"-",Resources$`Program Number`))
+
+```
+
+
+
+
+
+
+
+
+
+
+
