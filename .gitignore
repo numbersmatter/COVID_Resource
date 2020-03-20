@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 Resource Data Prep.nb.html
+config.yml
+googGeocodeV1.Rmd
